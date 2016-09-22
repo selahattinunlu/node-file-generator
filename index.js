@@ -2,9 +2,10 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
 var program = require('commander');
+var helper = require('./helper');
+var path = require('path');
+var fs = require('fs');
 
 var ROOT_DIR = path.resolve();
 var CONFIG_FILE_NAME = 'artisan.json';
@@ -13,7 +14,7 @@ var config = {};
 try {
     fs.statSync(path.resolve(CONFIG_FILE_NAME));
 } catch(error) {
-    console.log('Please create a '+ CONFIG_FILE_NAME +' configuration file in root');
+    helper.log('Please create a '+ CONFIG_FILE_NAME +' configuration file in root', 'yellow');
     process.exit(1);
 }
 
@@ -30,6 +31,25 @@ program
         arg_command = command;
         arg_path = path;
     })
+    .on('--help', function() {
+        var available_commands = Object.keys(config.commands);
+
+        helper.log('  Available Commands:', 'green');
+        helper.log('  _____________________', 'green');
+        helper.log('');
+        
+        Object.keys(config.commands).map(function(command) {
+            var command_description = config.commands[command].description;
+
+            if (command_description == undefined) {
+                command_description = '';
+            }
+
+            helper.log('  '+ command + '       ' + command_description, 'green');
+        });
+
+        helper.log('');
+    })
     .parse(process.argv);
 
 if (program.args.length === 0) {
@@ -37,17 +57,19 @@ if (program.args.length === 0) {
 }
 
 // check command
-var stub_path = config.commands[arg_command];
+var g_command = config.commands[arg_command];
 
-if (stub_path == undefined) {
-    console.log('Not found command!');
+if (g_command == undefined) {
+    helper.log("Not found '"+ arg_command +"' command!", 'red');
     process.exit(1);
 }
 
+var stub_path = g_command.stub;
 
 // check target path and create recursive path if needed.
 var target_path = path.resolve(arg_path);
-
+var target_dirname = path.dirname(target_path);
+helper.mkdirp(target_dirname);
 
 if (config.stubs_path.substr(-1) != '/') {
     config.stubs_path += '/';
@@ -60,8 +82,8 @@ try {
         encoding: 'utf8'
     });
 } catch (error) {
-    console.log("Stub file not found for '" + arg_command + "' command.");
-    console.log("Stub file: " + real_stub_path);
+    helper.log("Stub file not found for '" + arg_command + "' command.", 'red');
+    helper.log("Stub file: " + real_stub_path, 'red');
     process.exit(1);
 }
 
@@ -82,4 +104,4 @@ fs.writeFileSync(target_path, new_stub_content, {
     encoding: 'utf8'
 });
 
-console.log('File was created!');
+helper.log('File was created: ' + target_path, 'green');
