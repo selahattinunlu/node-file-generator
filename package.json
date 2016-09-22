@@ -1,0 +1,25 @@
+{
+  "name": "node-artisan",
+  "version": "1.0.0",
+  "description": "Node Artisan Generator",
+  "main": "index.js",
+  "bin": {
+    "artisan": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selahattinunlu/node-artisan.git"
+  },
+  "author": "Selahattin Ünlü",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/selahattinunlu/node-artisan/issues"
+  },
+  "homepage": "https://github.com/selahattinunlu/node-artisan#readme",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
+}
