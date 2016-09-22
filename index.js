@@ -8,7 +8,7 @@ var path = require('path');
 var fs = require('fs');
 
 var ROOT_DIR = path.resolve();
-var CONFIG_FILE_NAME = 'artisan.json';
+var CONFIG_FILE_NAME = 'generator.json';
 var config = {};
 
 try {
@@ -89,7 +89,8 @@ try {
 
 // transform module path
 var new_stub_content = original_stub_content.replace(/\[\[(.*)\]\]/gm, function(match, text) {
-    return path.relative(path.dirname(target_path), text);
+    var module_path = (text[0] == '~') ? text.substr(1) : path.relative(path.dirname(target_path), text);
+    return "'" + module_path + "'";
 });
 
 if (path.extname(target_path) == '' && config.default_extension) {
