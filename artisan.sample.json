@@ -1,0 +1,7 @@
+{
+    "default_extension": "js",
+    "stubs_path": "resources/stubs",
+    "commands": {
+        "make:action": "stub_file_name.extension"
+    }
+}
