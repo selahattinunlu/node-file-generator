@@ -1,24 +1,24 @@
 {
-  "name": "node-artisan",
+  "name": "node-file-generator",
   "version": "1.0.0",
-  "description": "Node Artisan Generator",
+  "description": "File Generator By Reading Stubs",
   "main": "index.js",
   "bin": {
-    "artisan": "./index.js"
+    "file-generator": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/selahattinunlu/node-artisan.git"
+    "url": "git+https://github.com/selahattinunlu/node-file-generator.git"
   },
   "author": "Selahattin Ünlü",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/selahattinunlu/node-artisan/issues"
+    "url": "https://github.com/selahattinunlu/node-file-generator/issues"
   },
-  "homepage": "https://github.com/selahattinunlu/node-artisan#readme",
+  "homepage": "https://github.com/selahattinunlu/node-file-generator#readme",
   "dependencies": {
     "colors": "^1.1.2",
     "commander": "^2.9.0",
